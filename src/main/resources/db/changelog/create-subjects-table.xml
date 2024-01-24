@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <!-- Create Subject Table -->
+    <changeSet id="createSubjectTable" author="BashEbash">
+        <createTable tableName="subjects">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="user_login" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="VARCHAR(255)"/>
+            <column name="start_price" type="DECIMAL(10, 5)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Add Foreign Key Constraint -->
+    <changeSet id="addForeignKeyConstraint" author="BashEbash">
+        <addForeignKeyConstraint baseTableName="subjects"
+                                 baseColumnNames="user_login"
+                                 constraintName="FK_Subject_User"
+                                 referencedTableName="users"
+                                 referencedColumnNames="login"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>

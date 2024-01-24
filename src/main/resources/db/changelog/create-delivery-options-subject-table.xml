@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <!-- Create DeliveryOption_Subject Join Table -->
+    <changeSet id="createDeliveryOptionSubjectTable" author="BashEbash">
+        <createTable tableName="delivery_option_subject">
+            <column name="subject_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_option_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Add Many-to-Many Relationship Constraints -->
+    <changeSet id="addManyToManyConstraints" author="BashEbash">
+        <addPrimaryKey tableName="delivery_option_subject" columnNames="delivery_option_id, subject_id"/>
+        <addForeignKeyConstraint baseTableName="delivery_option_subject"
+                                 baseColumnNames="subject_id"
+                                 constraintName="FK_DeliveryOptionSubject_Subject"
+                                 referencedTableName="subjects"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="delivery_option_subject"
+                                 baseColumnNames="delivery_option_id"
+                                 constraintName="FK_DeliveryOptionSubject_DeliveryOption"
+                                 referencedTableName="delivery_options"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+
+</databaseChangeLog>

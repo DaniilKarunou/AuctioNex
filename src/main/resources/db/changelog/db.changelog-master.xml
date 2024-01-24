@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <!-- Załączenie pliku z definicją zmian do tworzenia tabeli exchange_history -->
+    <include file="classpath:/db/changelog/create-users-table.xml"/>
+    <include file="classpath:/db/changelog/create-subjects-table.xml"/>
+    <include file="classpath:/db/changelog/create-delivery-options-table.xml"/>
+    <include file="classpath:/db/changelog/create-delivery-options-subject-table.xml"/>
+    <include file="classpath:/db/changelog/create-biddings-table.xml"/>
+    <include file="classpath:/db/changelog/create-offers-table.xml"/>
+
+</databaseChangeLog>

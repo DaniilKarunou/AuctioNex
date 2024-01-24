@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <!-- Create Bidding Table -->
+    <changeSet id="createBiddingTable" author="BashEbash">
+        <createTable tableName="biddings">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="subject_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_start" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_end" type="TIMESTAMP"/>
+            <column name="winner" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false" checkConstraint="status IN ('IN_PROGRESS', 'FINISHED', 'PURCHASED')"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Add Foreign Key Constraints -->
+    <changeSet id="addBiddingConstraints" author="BashEbash">
+        <!-- Then, add the foreign key constraint -->
+        <addForeignKeyConstraint baseTableName="biddings"
+                                 baseColumnNames="subject_id"
+                                 constraintName="FK_Bidding_Subject"
+                                 referencedTableName="subjects"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>

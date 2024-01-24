@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <!-- Create Offer Table -->
+    <changeSet id="createOfferTable" author="BashEbash">
+        <createTable tableName="offers">
+            <column name="bidding_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="DECIMAL(10, 5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_login" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Add Primary Key and Foreign Key Constraints -->
+    <changeSet id="addOfferConstraints" author="BashEbash">
+        <addForeignKeyConstraint baseTableName="offers"
+                                 baseColumnNames="bidding_id"
+                                 constraintName="FK_Offer_Bidding"
+                                 referencedTableName="biddings"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="offers"
+                                 baseColumnNames="user_login"
+                                 constraintName="FK_Offer_User"
+                                 referencedTableName="users"
+                                 referencedColumnNames="login"
+                                 onDelete="CASCADE"/>
+        <addPrimaryKey tableName="offers" columnNames="bidding_id, amount"/>
+    </changeSet>
+
+</databaseChangeLog>
